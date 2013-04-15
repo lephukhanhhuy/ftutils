@@ -55,6 +55,10 @@ NSString *const kFTAnimationNextAnimationKey = @"kFTAnimationNextAnimationKey";
 NSString *const kFTAnimationPrevAnimationKey = @"kFTAnimationPrevAnimationKey";
 NSString *const kFTAnimationWasInteractionEnabledKey = @"kFTAnimationWasInteractionEnabledKey";
 
+NSString *const kFTAnimationTypeNotInOut = @"kFTAnimationTypeNotInOut";
+NSString *const kFTAnimationMoveBy = @"kFTAnimationMoveBy";
+NSString *const kFTAnimationMoveTo = @"kFTAnimationMoveTo";
+
 @interface FTAnimationManager ()
 
 - (CGPoint)overshootPointFor:(CGPoint)point withDirection:(FTAnimationDirection)direction threshold:(CGFloat)threshold;
@@ -520,6 +524,34 @@ NSString *const kFTAnimationWasInteractionEnabledKey = @"kFTAnimationWasInteract
   return group;
 }
 
+- (CAAnimation *)moveBy:(CGPoint) point AnimationFor:(UIView *)view duration:(NSTimeInterval)duration delegate:(id)delegate
+          startSelector:(SEL)startSelector stopSelector:(SEL)stopSelector
+{
+    return [self moveTo:CGPointMake(view.center.x + point.x, view.center.y + point.y) AnimationFor:view duration:duration delegate:delegate startSelector:startSelector stopSelector:stopSelector];
+}
+
+- (CAAnimation *)moveTo:(CGPoint) point AnimationFor:(UIView *)view duration:(NSTimeInterval)duration delegate:(id)delegate
+          startSelector:(SEL)startSelector stopSelector:(SEL)stopSelector
+{
+    CGPoint path[2] =
+    {
+		view.center,
+        point
+	};
+	
+	CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+	CGMutablePathRef thePath = CGPathCreateMutable();
+	CGPathAddLines (thePath, NULL, path, 2);
+	animation.path = thePath;//thePath;
+	CGPathRelease(thePath);
+    
+	NSArray *animations;
+	animations = [NSArray arrayWithObject:animation];
+	
+	return [self animationGroupFor:animations withView:view duration:duration
+						  delegate:delegate startSelector:startSelector stopSelector:stopSelector
+							  name:kFTAnimationMoveBy type:kFTAnimationTypeNotInOut];
+}
 
 #pragma mark -
 #pragma mark Animation Delegate Methods

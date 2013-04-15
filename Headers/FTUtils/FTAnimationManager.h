@@ -60,6 +60,12 @@ extern NSString *const kFTAnimationFlyOut;
 
 extern NSString *const kFTAnimationTargetViewKey;
 
+extern NSString *const kFTAnimationTypeNotInOut;
+extern NSString *const kFTAnimationMoveBy;
+extern NSString *const kFTAnimationMoveTo;
+
+
+
 #pragma mark Inline Functions
 
 /**
@@ -350,6 +356,17 @@ static inline CGPoint FTAnimationOffscreenCenterPoint(CGRect viewFrame, CGPoint 
 - (CAAnimation *)flyOutAnimationFor:(UIView *)view duration:(NSTimeInterval)duration delegate:(id)delegate 
                       startSelector:(SEL)startSelector stopSelector:(SEL)stopSelector;
 
+/*
+ Move by like cocos2d by lephukhanhhuy@gmail.com
+ */
+- (CAAnimation *)moveBy:(CGPoint) point AnimationFor:(UIView *)view duration:(NSTimeInterval)duration delegate:(id)delegate
+          startSelector:(SEL)startSelector stopSelector:(SEL)stopSelector;
+
+/*
+ Move to like cocos2d by lephukhanhhuy@gmail.com
+ */
+- (CAAnimation *)moveTo:(CGPoint) point AnimationFor:(UIView *)view duration:(NSTimeInterval)duration delegate:(id)delegate
+          startSelector:(SEL)startSelector stopSelector:(SEL)stopSelector;
 
 @end
 

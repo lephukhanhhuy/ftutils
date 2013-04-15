@@ -213,4 +213,19 @@
   [self.layer addAnimation:anim forKey:kFTAnimationFlyOut];
 }
 
+#pragma mark - Move By and Move To
+
+- (void) moveBy:(CGPoint) point duration:(NSTimeInterval)duration delegate:(id)delegate startSelector:(SEL)startSelector stopSelector:(SEL)stopSelector
+{
+    CAAnimation *anim = [[FTAnimationManager sharedManager] moveBy:point AnimationFor:self duration:duration delegate:delegate startSelector:startSelector stopSelector:stopSelector];
+    [self.layer addAnimation:anim forKey:kFTAnimationMoveBy];
+    CGPoint desP = CGPointMake(self.center.x + point.x, self.center.y + point.y);// dublicate code 1 time
+    self.layer.position = desP;// MUST SET
+}
+- (void) moveTo:(CGPoint) point duration:(NSTimeInterval)duration delegate:(id)delegate startSelector:(SEL)startSelector stopSelector:(SEL)stopSelector
+{
+    CAAnimation *anim = [[FTAnimationManager sharedManager] moveTo:point AnimationFor:self duration:duration delegate:delegate startSelector:startSelector stopSelector:stopSelector];
+    [self.layer addAnimation:anim forKey:kFTAnimationMoveBy];
+    self.layer.position = point;// MUST SET
+}
 @end

@@ -25,6 +25,8 @@
 #import "GestureRecognizerBlocks.h"
 #import "FTUtils+UIGestureRecognizer.h"
 
+#import "FTAnimation+UIView.h"
+
 @implementation GestureRecognizerBlocks
 
 + (NSString *)displayName {
@@ -47,6 +49,13 @@
       self.viewToAnimate.center =  CGPointMake(self.viewToAnimate.center.x + translation.x, 
                                                self.viewToAnimate.center.y + translation.y);
       [pan setTranslation:CGPointZero inView:self.viewToAnimate.superview];
+    }
+    else if(pan.state == UIGestureRecognizerStateEnded)
+    {
+        NSLog(@"End");
+        // move to const point
+//            [self.viewToAnimate moveBy:CGPointMake(0, 200) duration:1.0 delegate:nil startSelector:nil stopSelector:nil];
+        [self.viewToAnimate moveTo:CGPointMake(160, 240) duration:0.3 delegate:nil startSelector:nil stopSelector:nil];
     }
   }]];
   

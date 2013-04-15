@@ -330,4 +330,14 @@
  */
 - (void)flyOut:(NSTimeInterval)duration delegate:(id)delegate startSelector:(SEL)startSelector stopSelector:(SEL)stopSelector;
 
+/**
+ The view will move by point
+ */
+- (void) moveBy:(CGPoint) point duration:(NSTimeInterval)duration delegate:(id)delegate startSelector:(SEL)startSelector stopSelector:(SEL)stopSelector;
+
+/**
+ The view will move to point
+ */
+- (void) moveTo:(CGPoint) point duration:(NSTimeInterval)duration delegate:(id)delegate startSelector:(SEL)startSelector stopSelector:(SEL)stopSelector;
+
 @end
